@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head> <title>{% block title %}Barter{% endblock %}</title>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href={% static "baseStyle.css" %} />
+</head>
+
+<body>
+    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
+   {{ greeting }}
+        <div id="menu">
+            {% block nav-global %}
+		<div id="contentBox">
+                <!-- MENU -->
+                <div id="title">Barter</div>
+		<div id="linkGroup">
+			<div class = "link"><a href="/barter/login">Login</a></div>
+			{% if greeting %}
+			<div class = "link"><a href="/barter/add">Add</a></div>
+			{% endif %}
+			<div class = "link"><a href="/barter/register">Register</a></div>
+			<div class = "link"><a href="/barter/log_out">Logout</a></div>
+		</div>
+            {% endblock %}
+	<div id="blueBox">
+        	<div class="contentTitle">Announcement Title</div>
+		<div class="pageContent">
+              <p>Announcement content.</p>
+            </div>
+	</div>
+	</div>
+	</div>
+
+</body>
+</html>
