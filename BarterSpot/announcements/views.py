@@ -6,6 +6,9 @@ def index(request):
 	context = None
 	return render(request, 'base.html', context)
 
+def add_page(request):
+        return render_to_response('announcement/add.html')
+
 def add_announcement(request):
         _member = request.POST.get('member','')
 	_title = request.POST.get('title','')
