@@ -1,13 +1,14 @@
 # Create your views here.
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
+
 
 def index(request):
 	context = None
 	return render(request, 'base.html', context)
 
 def add_page(request):
-        return render_to_response('announcement/add.html')
+	return render(request, 'announcements/add.html', None)
 
 def add_announcement(request):
         _member = request.POST.get('member','')

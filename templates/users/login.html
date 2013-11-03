@@ -2,15 +2,15 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Log in</title>
+	<title>Log in</title>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href={% static "baseStyle.css" %} />
 </head>
+
 <body>
 <div id="sidebar"> {% block sidebar %} {% endblock %} </div>  
 <div id="menu">
-<div id="contentBox">
-   <div id="blueBox">
+   <div id="smallBlueBox">
    </br>
    <div class="contentTitle">{{ state }}</div>
     <form action="/users/auth/" method="post">
@@ -20,13 +20,12 @@
 		  <input type="hidden" name="next" value="{{ next }}" />
 		{% endif %}
 			    Username:
-				    <input id="logInput" type="text" name="username" value="{{ username}}" /><br/>
+				    <input id="logInput" type="text" name="username" value="{{ request.user.username}}" /><br/>
 				Password:
 					<input id="passInput" type="password" name="password" value=""/><br/>
 					</br>
 										
-			  <input id="button" type="submit" value="Log In" />
-			  </br>
+			  <input id="submitButton" type="submit" value="Log In" /></br>
 			  </br>
 			  </div>
 	</form>

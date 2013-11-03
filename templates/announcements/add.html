@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Add announcement</title>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href={% static "baseStyle.css" %} />
+<body>
+    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
+   {{ greeting }}
+        <div id="menu">
+            {% block nav-global %}
+		<div id="contentBox">
+                <!-- MENU -->
+                <div id="title">Barter</div>
+		<div id="linkGroup">
+			<div class = "link"><a href='/'>Main</a></div>
+			<div class = "link"><a href="/announcements/add">Add</a></div>
+			<div class = "link"><a href="/users/log_out">Logout</a></div>
+		</div>
+            {% endblock %}
+	
+	<div id="blueBox">
+	<br/>
+<div class="contentTitle">Add announcement</div><br/>
+	<div class="pageContent">
+<!-- announcement form  -->
+<form action="/announcement/add/" method="post">
+    <div >
+        Author: {{ request.user.username }}<br/>
+		Title: 
+		<input id="announcementTitle" type="text" name="title" value="" /><br/>
+		<br/>
+		<textarea id="announcementText">
+		
+		</textarea>
+		<br/>
+	<input type="hidden" name="alist" value="1" />
+	<input type="hidden" name="alist" value="2" />
+	<input type="hidden" name="alist" value="3" />
+    <br/>
+	<input id="submitButton" type="submit" value="Submit"><br/>
+	<br/>
+<div/>	
+	</div>
+	</div>
+	</div>
+	</div>
+</form>
+</body>
+</html>
