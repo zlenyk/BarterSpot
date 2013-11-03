@@ -6,6 +6,8 @@ from BarterSpot.users.models import Member
 class Tag(models.Model):
 	name = models.CharField(max_length=100)
 	count = models.IntegerField(default=0)
+        def __unicode__(self):
+	    return self.name;
 
 class Announcement(models.Model):
 	member = models.ForeignKey(Member)
@@ -13,6 +15,19 @@ class Announcement(models.Model):
 	tags = models.ManyToManyField(Tag)
 	pub_date = models.DateTimeField('date of announcement')
 
+	ACTIVE = 0
+	IN_PROGRESS = 1
+	FINISHED = 2
+        STATUS = (
+	    (ACTIVE, 'active'),
+	    (IN_PROGRESS, 'in_progress'),
+	    (FINISHED, 'finished'),
+	)
+
+        status = models.IntegerField(choices=STATUS, default=ACTIVE)
+
+        def __unicode__(self):
+	    return self.title;
 
 
 
