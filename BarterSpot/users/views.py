@@ -1,7 +1,9 @@
 # Create your views here.
-
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render
+from models import Member
 def register_view(request):
     return render(request, 'users/register.html', None)
 
