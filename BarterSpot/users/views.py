@@ -2,9 +2,24 @@
 
 from django.contrib import auth
 from django.shortcuts import render
+def register_view(request):
+    return render(request, 'users/register.html', None)
+
+def add_user(request):
+    uname = request.POST.get('username')
+    passw = request.POST.get('password')
+    email = request.POST.get('email')
+    User.objects.create_user(uname,email,passw)
+    
+    firstName = request.POST.get('first_name')
+    lastName = request.POST.get('last_name')
+    _city = request.POST.get('city')
+    member = Member(username=uname,first_name=firstName, last_name=lastName,city=_city)
+    member.save()
+    return render(request,'base.html', None)
 
 def login_view(request):
-	return render(request, 'users/login.html', None)
+    return render(request, 'users/login.html', None)
 
 def auth_user(request):
     username = request.POST.get('username', '')
