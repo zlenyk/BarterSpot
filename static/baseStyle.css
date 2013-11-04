@@ -177,6 +177,18 @@ margin-left:57px;
 width: 150px;
 }
 
+#nameInput
+{
+margin-left:28px;
+width: 150px;
+}
+
+#cityInput
+{
+margin-left:69px;
+width: 150px;
+}
+
 #announcementTitle
 {
 width: 450px;

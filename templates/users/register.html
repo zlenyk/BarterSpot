@@ -1,41 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-   <title>Register</title>
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href={% static "baseStyle.css" %} />
-</head>
-
-<body>
-   <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
-   <div id="menu">
-   <div id="smallBlueBox">
-   </br>
-   <div class="contentTitle">{{ state }}</div>
-	   <form action="/users/add/" method="post">
-	    <div class="pageContent">
-		  {% if next %}
-		  <input type="hidden" name="next" value="{{ next}}" />
-		  {% endif %}
-		  Username:
-		  <input type="text" id="logInput" name="username" value="" /><br/>
-		  First Name:
-		  <input type="text" id="logInput" name="first_name" value="" /><br/>
-		  Last Name:
-		  <input type="text" id="logInput" name="last_name" value="" /><br/>
-		  City:
-		  <input type="text" id="logInput" name="city" value="" /><br/>
-		  Password:
-		  <input type="password" id="passInput" name="password" value=""/><br />
-		  Email:
-		  <input type="text" id="mailInput" name="email" value=""/><br/>
-		  <br/>
-		  <input type="submit" id="submitButton" value="Register" /><br/>
-		  <br/>
-	    </div>
-	   </form>
-	   <div/>
-	   <div/>
-</body>
-</html>
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+</br>
+<div class="contentTitle">{{ state }}</div>
+<form action="/users/add/" method="post">
+	<div class="pageContent">
+	  {% if next %}
+	  <input type="hidden" name="next" value="{{ next}}" />
+	  {% endif %}
+	  Username:
+		<input type="text" id="logInput" name="username" value="" /><br/>
+	  First Name:
+		<input type="text" id="nameInput" name="first_name" value="" /><br/>
+	  Last Name:
+		<input type="text" id="nameInput" name="last_name" value="" /><br/>
+	  City:
+		<input type="text" id="cityInput" name="city" value="" /><br/>
+	  Password:
+		<input type="password" id="passInput" name="password" value=""/><br />
+	  Email:
+		<input type="text" id="mailInput" name="email" value=""/><br/>
+	  <br/>
+		<input type="submit" id="submitButton" value="Register" /><br/>
+	  <br/>
+	</div>
+</form>
+	   
+{% endblock %}
