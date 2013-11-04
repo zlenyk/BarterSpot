@@ -19,7 +19,7 @@ def add_user(request):
     _city = request.POST.get('city')
     member = Member(username=uname,first_name=firstName, last_name=lastName,city=_city)
     member.save()
-    return render(request,'base.html', None)
+    return render(request,'index.html', None)
 
 def login_view(request):
     return render(request, 'users/login.html', None)
@@ -35,13 +35,13 @@ def auth_user(request):
         auth.login(request, user)
         # Redirect to a success page.
         context = { auth: True }
-    	return render(request, 'base.html', context)
+    	return render(request, 'index.html', context)
     else:
         # Show an error page
         context = None 
-    	return render(request, 'base.html', context)
+    	return render(request, 'index.html', context)
 
 def logout_user(request):
 	logout(request)
-	return render(request, 'base.html', context)
+	return render(request, 'index.html', context)
 

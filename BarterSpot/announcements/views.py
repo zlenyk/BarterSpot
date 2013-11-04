@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 
 def index(request):
 	context = None
-	return render(request, 'base.html', context)
+	return render(request, 'index.html', context)
 
 def add_page(request):
 	return render(request, 'announcements/add.html', None)
@@ -34,4 +34,4 @@ def add_announcement(request):
 	    announcement.tags.add(tag)
         
         context = None
-	return render(request, 'base.html', context)
+	return render(request, 'index.html', context)
