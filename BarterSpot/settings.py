@@ -1,7 +1,18 @@
+import os
+
 # Django settings for BarterSpot project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+
+###############################################################################
+
+PROJECT_PATH = os.path.join(os.path.split(__file__)[0], "..")
+print(PROJECT_PATH)
+
+###############################################################################
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -11,13 +22,18 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'barterdb',                      # Or path to database file if using sqlite3.
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # Or path to database file if using sqlite3.
+        'NAME': 'barterdb',
         # The following settings are not used with sqlite3:
         'USER': 'barterman',
         'PASSWORD': 'barterman',
-        'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        # Empty for localhost through domain sockets or
+        #   '127.0.0.1' for localhost through TCP.
+        'HOST': '127.0.0.1',
+        # Set to empty string for default.
+        'PORT': '5432',
     }
 }
 
@@ -72,7 +88,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	"C:/Users/Anita/Documents/GitHub/BarterSpot/static",
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -80,7 +96,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -90,7 +106,7 @@ SECRET_KEY = '*e43622*(qd5e-2$^u6_sx1$7%x11@y$_*3njnbx+6_69q8jz-'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -109,10 +125,11 @@ ROOT_URLCONF = 'BarterSpot.urls'
 WSGI_APPLICATION = 'BarterSpot.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    #   "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-   "C:/Users/Anita/Documents/GitHub/BarterSpot/templates",	
+    os.path.join(PROJECT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -126,8 +143,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-	'BarterSpot.announcements',
-	'BarterSpot.users',
+    'BarterSpot.announcements',
+    'BarterSpot.users',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
