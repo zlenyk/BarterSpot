@@ -7,6 +7,9 @@
 <div class="contentTitle">Announcement Title</div>
 <div class="pageContent">
 	<p>Announcement content.</p>
+        {% if user.is_authenticated %}
+            <p>Hello {{ user.username }} </p>
+        {% endif %}
 </div>
 <br/>
 

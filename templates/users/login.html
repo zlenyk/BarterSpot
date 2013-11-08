@@ -2,24 +2,32 @@
 {% load url from future %}
 {% block main %}
 
-</br>
+<br>
 <div class="contentTitle">Please log in below...</div>
-<form action="/users/auth/" method="post">
-{% csrf_token %}
 <div class="pageContent">
-	{% if next %}
-	  <input type="hidden" name="next" value="{{ next }}" />
-	{% endif %}
-		Username:
-			<input id="logInput" type="text" name="username" value="{{ request.user.username}}" /><br/>
-		Password:
-			<input id="passInput" type="password" name="password" value=""/><br/>
-			</br>
-									
-		<input id="submitButton" type="submit" value="Log In" /></br>
-		</br>
-</div>
+<form action="/users/login/" method="post">
+{% csrf_token %}
+{% if logged %}
+<p> You are already logged </p>
+{% else %}
+
+    {% if auth == False %}
+    <p><b> You entered incorrect data </b></p>
+    {% endif %}
+
+    {% csrf_token %}
+    <table>
+            {% for field in form %}
+    <tr>
+        <td>{{ field.label_tag }}</td>
+            <td>{{ field }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="Submit" />
+    </form>
+{% endif %}
 </form>
 </div>
-
+</div>
 {% endblock %}
