@@ -12,8 +12,10 @@ class Tag(models.Model):
 class Announcement(models.Model):
 	member = models.ForeignKey(Member)
 	title = models.CharField(max_length=100)
+	content = models.TextField()
 	tags = models.ManyToManyField(Tag)
 	pub_date = models.DateTimeField('date of announcement',default=datetime.today())
+	
 
 	ACTIVE = 0
 	IN_PROGRESS = 1

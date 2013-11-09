@@ -14,9 +14,11 @@ def add_page(request):
 def add_announcement(request):
 	_member = Member.objects.get(username=request.user.username)
 	_title = request.POST.get('title')
+	_content = request.POST.get('content')
 	announcement = Announcement(
 	    member = _member,
 	    title = _title,
+	    content = _content,
         )
 	announcement.save()
 	tag_list = request.POST.getlist('tag_list')
