@@ -16,5 +16,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 	url(r'^$','BarterSpot.views.index'),
 	url(r'^announcements/', include('BarterSpot.announcements.urls')),
-	url(r'^users/', include('BarterSpot.users.urls')),	
+	url(r'^users/', include('BarterSpot.users.urls')),
 )

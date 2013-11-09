@@ -6,9 +6,9 @@
 <div class="contentTitle">Add announcement</div><br/>
 	<div class="pageContent">
 <!-- announcement form  -->
-<form action="/announcements/add/" method="post">
+<form action="/announcements/add_announcement/" method="post">
 	<div>
-        You add announcement as: {{ request.user.username}}<br/>
+        You add announcement as: {{user.username}}<br/>
 		Title: 
 		<input id="announcementTitle" type="text" name="title" value="" /><br/>
 		<br/>

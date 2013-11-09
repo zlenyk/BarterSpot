@@ -1,7 +1,8 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
-
+from models import Announcement,Tag
+from BarterSpot.users.models import Member
 
 def index(request):
 	context = None
@@ -11,13 +12,11 @@ def add_page(request):
 	return render(request, 'announcements/add.html', None)
 
 def add_announcement(request):
-        _member = request.POST.get('member','')
-	_title = request.POST.get('title','')
-	_pub_date = request.POST.get('pub_date','')
+	_member = Member.objects.get(username=request.user.username)
+	_title = request.POST.get('title')
 	announcement = Announcement(
 	    member = _member,
 	    title = _title,
-	    pub_date = _pub_date
         )
 	announcement.save()
 	tag_list = request.POST.getlist('tag_list')
@@ -32,6 +31,7 @@ def add_announcement(request):
         
 	for tag in tags:
 	    announcement.tags.add(tag)
-        
-        context = None
-	return render(request, 'index.html', context)
+	
+	announcement_list = Announcement.objects.order_by('pub_date')
+
+	return render(request,'index.html',{'announcement_list':announcement_list})

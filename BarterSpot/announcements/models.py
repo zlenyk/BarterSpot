@@ -1,6 +1,6 @@
 from django.db import models
 from BarterSpot.users.models import Member
-
+from datetime import datetime
 # Create your models here.
 
 class Tag(models.Model):
@@ -13,7 +13,7 @@ class Announcement(models.Model):
 	member = models.ForeignKey(Member)
 	title = models.CharField(max_length=100)
 	tags = models.ManyToManyField(Tag)
-	pub_date = models.DateTimeField('date of announcement')
+	pub_date = models.DateTimeField('date of announcement',default=datetime.today())
 
 	ACTIVE = 0
 	IN_PROGRESS = 1
