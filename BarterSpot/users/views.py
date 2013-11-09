@@ -7,6 +7,7 @@ from models import Member
 from BarterSpot.users.forms import RegisterForm
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseRedirect
 
 def register_user(request):
     if request.user.is_authenticated():
@@ -29,8 +30,8 @@ def register_user(request):
             
             member = Member(username=_username,city=_city)
             member.save()
-            return render(request,'index.html', None)
-        else:
+	    return HttpResponseRedirect('/')
+	else:
             c = {'valid': False, 'form': user_form}
             _username = request.POST['username']
             if _username is not None and User.objects.filter(username=_username).count()>0:
@@ -55,8 +56,8 @@ def login_user(request):
             auth.login(request, user)
             # Redirect to a success page.
             context = { 'auth': True }
-            return render(request, 'index.html', context)
-        else:
+	    return HttpResponseRedirect('/')
+	else:
             # Show an error page
             context = { 'auth': False, 'form': login_form } 
             return render(request, 'users/login.html', context)         
@@ -66,5 +67,4 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return render(request, 'index.html', None)
-
+    return HttpResponseRedirect('/')
