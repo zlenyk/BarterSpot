@@ -25,9 +25,9 @@ def add_announcement(request):
     )
     announcement.save()
     tagsStrList = request.POST.getlist('tag_list')
-    print("tag list size: " + str(len(tagsStrList)))
-    for strTag in tagsStrList:
-        print(strTag + " " + str(type(strTag)))
+    # print("tag list size: " + str(len(tagsStrList)))
+    # for strTag in tagsStrList:
+    #     print(strTag + " " + str(type(strTag)))
     announcement.addTagsList(Tag.addTagsList(tagsStrList))
     announcement.save()
     return HttpResponseRedirect('/')

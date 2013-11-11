@@ -5,10 +5,16 @@ from datetime import datetime
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-    # count = models.AutoField(primaty_key=True)
+    count = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name
+
+    @staticmethod
+    def getTagByName(self, strTagName):
+        if Tag.tagExists(strTagName):
+            return self.objects.get(name=strTagName)
+        return None
 
     @staticmethod
     def tagExists(strTagName):
@@ -27,6 +33,17 @@ class Tag(models.Model):
             ret.append(Tag.addTag(tag))
 
         return ret
+
+    def incrementCount(self):
+        self.count += 1
+        self.save()
+
+    def decrementCount(self):
+        self.count -= 1
+        self.save()
+
+    def getCount(self):
+        return self.count
 
 
 class Announcement(models.Model):
@@ -51,6 +68,30 @@ class Announcement(models.Model):
     def __unicode__(self):
         return self.title
 
+    def addTag(self, tag):
+        tag.incrementCount()
+        self.tags.add(tag)
+
     def addTagsList(self, tagsList):
         for tag in tagsList:
-            self.tags.add(tag)
+            self.addTag(tag)
+
+    def addStrTag(self, strTag):
+        self.addTag(Tag.addTag(strTag))
+
+    def addStrTagsList(self, strTagsList):
+        for strTag in strTagsList:
+            self.addStrTag(strTag)
+
+    def removeTag(self, tag):
+        tag.decrementCount()
+        self.tags.remove(tag)
+
+    def removeTagsList(self, tagsList):
+        for tag in tagsList:
+            self.removeTag(tag)
+
+    def removeStrTag(self, strTag):
+        tagToRemove = Tag.getTagByName(strTag)
+        if tagToRemove is not None:
+            self.removeTag(tagToRemove)
