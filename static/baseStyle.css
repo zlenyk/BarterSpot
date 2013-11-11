@@ -1,6 +1,5 @@
 html
 {
-  overflow: hidden;
   height: 99%;
 }
                          
@@ -27,14 +26,12 @@ body
 /* === Containers === */
 
 
-
 #menu
 {
   margin: 0 auto 0 auto; 
   display: table; 
   height: 100%;  
   position: relative; 
-  overflow: hidden; 
   width: 600px;
 }
 
