@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response
 from models import Announcement,Tag
 from BarterSpot.users.models import Member
+from BarterSpot.utils.utils import authorizationCheck
 
 
 def index(request):
@@ -10,10 +11,12 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+@authorizationCheck
 def add_page(request):
     return render(request, 'announcements/add.html', None)
 
 
+@authorizationCheck
 def add_announcement(request):
     _member = Member.objects.get(username=request.user.username)
     _title = request.POST.get('title')

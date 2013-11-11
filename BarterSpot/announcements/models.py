@@ -45,6 +45,10 @@ class Tag(models.Model):
     def getCount(self):
         return self.count
 
+    @staticmethod
+    def getTagsByPopularity():
+        pass
+
 
 class Announcement(models.Model):
     member = models.ForeignKey(Member)
@@ -95,3 +99,6 @@ class Announcement(models.Model):
         tagToRemove = Tag.getTagByName(strTag)
         if tagToRemove is not None:
             self.removeTag(tagToRemove)
+
+    def getSimilarAnnouncements():
+        pass

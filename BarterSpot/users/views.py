@@ -9,11 +9,12 @@ from django.core.context_processors import csrf
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 
+
 def register_user(request):
     if request.user.is_authenticated():
-        return render(request,'users/register',{'has_account': True})
+        return render(request, 'users/register', {'has_account': True})
 
-    if request.method == 'POST':    
+    if request.method == 'POST':
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
             _username = user_form.cleaned_data['username']
@@ -27,26 +28,28 @@ def register_user(request):
                                      first_name=_first_name,
                                      last_name=_last_name,
                                      password=_password)
-            
-            member = Member(username=_username,city=_city)
+
+            member = Member(username=_username, city=_city)
             member.save()
-	    return HttpResponseRedirect('/')
-	else:
+            return HttpResponseRedirect('/')
+        else:
             c = {'valid': False, 'form': user_form}
             _username = request.POST['username']
-            if _username is not None and User.objects.filter(username=_username).count()>0:
-                c['user_exists']=True
-            return render(request,'users/register.html', c)
+            if _username is not None and \
+                    User.objects.filter(username=_username).count() > 0:
+                c['user_exists'] = True
+            return render(request, 'users/register.html', c)
     else:
         user_form = RegisterForm()
-        return render(request,'users/register.html', {'form': user_form})
+        return render(request, 'users/register.html', {'form': user_form})
+
 
 def login_user(request):
     if request.user.is_authenticated():
-        return render(request,'users/login.html',{'logged': True})
+        return render(request, 'users/login.html', {'logged': True})
 
     login_form = AuthenticationForm()
-    if request.method == 'POST': 
+    if request.method == 'POST':
         # retrieves fields from the Authentication Form
         _username = request.POST['username']
         _password = request.POST['password']
@@ -55,14 +58,14 @@ def login_user(request):
             # Correct password, and the user is marked "active"
             auth.login(request, user)
             # Redirect to a success page.
-            context = { 'auth': True }
-	    return HttpResponseRedirect('/')
-	else:
+            context = {'auth': True}
+            return HttpResponseRedirect('/')
+        else:
             # Show an error page
-            context = { 'auth': False, 'form': login_form } 
-            return render(request, 'users/login.html', context)         
+            context = {'auth': False, 'form': login_form}
+            return render(request, 'users/login.html', context)
     else:
-        return render(request,'users/login.html', {'form': login_form })
+        return render(request, 'users/login.html', {'form': login_form})
 
 
 def logout_user(request):
