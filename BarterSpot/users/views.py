@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.shortcuts import render
 from models import Member
 from BarterSpot.users.forms import RegisterForm
+from BarterSpot.announcements.models import Announcement
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
@@ -71,3 +72,10 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
+	
+def show_profile(request, _username):
+	user = User.objects.get(username=_username)
+	_member = Member.objects.get(username=_username)
+	ann_list = Announcement.objects.order_by('pub_date').filter(member=_member)
+	return render(request, 'users/profile.html', {'member': _member, 'user': user, 'announcement_list': ann_list})
+	
