@@ -74,8 +74,8 @@ def logout_user(request):
     return HttpResponseRedirect('/')
 	
 def show_profile(request, _username):
-	user = User.objects.get(username=_username)
+	_user = User.objects.get(username=_username)
 	_member = Member.objects.get(username=_username)
 	ann_list = Announcement.objects.order_by('pub_date').filter(member=_member)
-	return render(request, 'users/profile.html', {'member': _member, 'user': user, 'announcement_list': ann_list})
+	return render(request, 'users/profile.html', {'member': _member, 'user1': _user, 'announcement_list': ann_list})
 	
