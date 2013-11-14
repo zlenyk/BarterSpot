@@ -9,10 +9,10 @@
 
 {% for announcement in announcement_list %}
     <br/>
-    <div class="contentTitle">{{ announcement.title }}</div>
+    <div class="contentTitle">{{ announcement.getTitle }}</div>
     <div class="pageContent">
-	<p>{{ announcement.content }}</p>
-	<p>Added by <a href="/users/profile/{{announcement.member.username}}"> {{announcement.member.username}}</a> </p>
+	<p>{{ announcement.getContent }}</p>
+	<p>Added by <a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a> </p>
 	<br/>	
     </div>
     <br/>

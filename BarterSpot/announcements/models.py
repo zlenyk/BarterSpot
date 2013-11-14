@@ -1,5 +1,5 @@
 from django.db import models
-from BarterSpot.users.models import Member
+# import BarterSpot.users.models
 from datetime import datetime
 
 
@@ -51,7 +51,7 @@ class Tag(models.Model):
 
 
 class Announcement(models.Model):
-    member = models.ForeignKey(Member)
+    user = models.ForeignKey("users.BarterUser")
     title = models.CharField(max_length=100)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
@@ -69,8 +69,39 @@ class Announcement(models.Model):
 
     status = models.IntegerField(choices=STATUS, default=ACTIVE)
 
+    @staticmethod
+    def createAnnouncement(user, title, content, tagsList):
+        newAnn = Announcement(
+            user=user,
+            title=title,
+            content=content,
+        )
+        newAnn.save()
+        newAnn.addTagsList(tagsList)
+        return newAnn
+
+    @staticmethod
+    def getAllAnnouncements(orderBy='pub_date'):
+        return Announcement.objects.order_by(orderBy)
+
+    @staticmethod
+    def getUsersAnnouncements(user, orderBy='pub_date'):
+        return Announcement.objects.filter(user=user).order_by(orderBy)
+
     def __unicode__(self):
         return self.title
+
+    def getAuthor(self):
+        return self.user
+
+    def getAuthorLogin(self):
+        return self.getAuthor().getLogin()
+
+    def getTitle(self):
+        return self.title
+
+    def getContent(self):
+        return self.content
 
     def addTag(self, tag):
         tag.incrementCount()

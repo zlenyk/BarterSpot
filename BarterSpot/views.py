@@ -5,5 +5,5 @@ from BarterSpot.announcements.models import Announcement
 
 
 def index(request):
-    ann_list = Announcement.objects.order_by('pub_date')
+    ann_list = Announcement.getAllAnnouncements()
     return render(request, 'index.html', {'announcement_list': ann_list})

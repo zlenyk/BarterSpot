@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render
-from models import Member
+from models import BarterUser
 from BarterSpot.users.forms import RegisterForm
 from BarterSpot.announcements.models import Announcement
 from django.core.context_processors import csrf
@@ -24,20 +24,17 @@ def register_user(request):
             _email = user_form.cleaned_data['email']
             _password = user_form.cleaned_data['password1']
             _city = user_form.cleaned_data['city']
-            User.objects.create_user(username=_username,
-                                     email=_email,
-                                     first_name=_first_name,
-                                     last_name=_last_name,
-                                     password=_password)
-
-            member = Member(username=_username, city=_city)
-            member.save()
+            BarterUser.createUser(username=_username,
+                                  email=_email,
+                                  first_name=_first_name,
+                                  last_name=_last_name,
+                                  password=_password,
+                                  city=_city)
             return HttpResponseRedirect('/')
         else:
             c = {'valid': False, 'form': user_form}
             _username = request.POST['username']
-            if _username is not None and \
-                    User.objects.filter(username=_username).count() > 0:
+            if BarterUser.userWithLoginExists(_username):
                 c['user_exists'] = True
             return render(request, 'users/register.html', c)
     else:
@@ -72,10 +69,10 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
-	
+
+
 def show_profile(request, _username):
-	_user = User.objects.get(username=_username)
-	_member = Member.objects.get(username=_username)
-	ann_list = Announcement.objects.order_by('pub_date').filter(member=_member)
-	return render(request, 'users/profile.html', {'member': _member, 'user1': _user, 'announcement_list': ann_list})
-	
+    _user = BarterUser.getUserByLogin(_username)
+    ann_list = _user.getAnnouncements()
+    return render(request, 'users/profile.html', {'barter_user': _user,
+                                                  'ann_list': ann_list})

@@ -6,16 +6,16 @@
 <div class="contentTitle">User profile</div>
 <div class="pageContent">
 <br/>
-	<b>Login: </b> {{member.username}} <br/>
-	<b>First name: </b> {{user1.first_name}} <br/>
-	<b>Last name: </b> {{user1.last_name}} <br/>
-	<b>Email: </b> {{user1.email}} <br/>
-	<b>City: </b> {{member.city}} <br/>
+	<b>Login: </b> {{barter_user.username}} <br/>
+	<b>First name: </b> {{barter_user.first_name}} <br/>
+	<b>Last name: </b> {{barter_user.last_name}} <br/>
+	<b>Email: </b> {{barter_user.email}} <br/>
+	<b>City: </b> {{barter_user.city}} <br/>
 	<br/>
 	<br/>
 	Announcements added by this user: <br/>
 	
-	{% for announcement in announcement_list %}
+	{% for announcement in ann_list %}
     <br/>
     <div class="contentTitle">{{ announcement.title }}</div>
     <div class="pageContent">

@@ -2,7 +2,7 @@
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response
 from models import Announcement,Tag
-from BarterSpot.users.models import Member
+from BarterSpot.users.models import BarterUser
 from BarterSpot.utils.utils import authorizationCheck
 
 
@@ -18,19 +18,15 @@ def add_page(request):
 
 @authorizationCheck
 def add_announcement(request):
-    _member = Member.objects.get(username=request.user.username)
+    _user = BarterUser.getUserFromRequest(request)
     _title = request.POST.get('title')
     _content = request.POST.get('content')
-    announcement = Announcement(
-        member=_member,
-        title=_title,
-        content=_content,
-    )
-    announcement.save()
     tagsStrList = request.POST.getlist('tag_list')
-    # print("tag list size: " + str(len(tagsStrList)))
-    # for strTag in tagsStrList:
-    #     print(strTag + " " + str(type(strTag)))
-    announcement.addTagsList(Tag.addTagsList(tagsStrList))
-    announcement.save()
-    return HttpResponseRedirect('/')
+    tagsList = Tag.addTagsList(tagsStrList)
+    newAnn = Announcement.createAnnouncement(_user, _title, _content, tagsList)
+    if newAnn is not None:
+        # Should be "Announcement creation cucccessful" or whatever
+        return HttpResponseRedirect('/')
+    else:
+        # Should be "Announcement creation failed"
+        return HttpResponseRedirect('/')

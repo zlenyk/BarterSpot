@@ -6,7 +6,6 @@ class authorizationCheck(object):
         self.func = func
 
     def __call__(self, request):
-        print("dupa dupa")
         if request.user.is_authenticated():
             return self.func(request)
         else:
