@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+    <div>
+    Results:
+    {% for user in result_list %}
+        <p><a href = "/users/profile/{{user.getLogin}}/"> {{user.first_name}} {{user.last_name}}</p>
+    {% endfor %}
+    <div>
+{% endblock %}

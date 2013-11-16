@@ -2,7 +2,13 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block main %}
-
+<div>
+Search user:
+<form action="/searchUser/" method="post">
+    <div>First name: <input type="text" name="first_name"/> <br/> </div>
+    <div>Last name: <input type="text" name="last_name"/> <br/> </div>
+    <div><input id="submitButton" type="submit" value="Search"/> <br/> </div>
+</div>
 {% if user.is_authenticated %}
     <p>Hello {{ user.username }} </p>
 {% endif %}

@@ -55,6 +55,19 @@ class BarterUser(User):
     def getUserFromRequest(request):
         return BarterUser.getUserById(request.user.id)
 
+    @staticmethod
+    def getUserByFirstName(_first_name):
+        return BarterUser.objects.filter(first_name=_first_name)
+
+    @staticmethod
+    def getUserByLastName(_last_name):
+        return BarterUser.objects.filter(last_name=_last_name)
+
+    @staticmethod
+    def getUserByNames(_first_name,_last_name):
+        return BarterUser.objects.filter(first_name=_first_name,
+                                        last_name=_last_name)
+
     def getLogin(self):
         return self.get_username()
 
