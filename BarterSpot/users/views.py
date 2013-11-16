@@ -3,12 +3,13 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render
-from models import BarterUser
+from models import BarterUser, Validation
 from BarterSpot.users.forms import RegisterForm
 from BarterSpot.announcements.models import Announcement
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
+from BarterSpot.utils.utils import generateRandomString, sendValidationMail
 
 
 def register_user(request):
@@ -24,12 +25,15 @@ def register_user(request):
             _email = user_form.cleaned_data['email']
             _password = user_form.cleaned_data['password1']
             _city = user_form.cleaned_data['city']
-            BarterUser.createUser(username=_username,
-                                  email=_email,
-                                  first_name=_first_name,
-                                  last_name=_last_name,
-                                  password=_password,
-                                  city=_city)
+            newUser = BarterUser.createUser(username=_username,
+                                            email=_email,
+                                            first_name=_first_name,
+                                            last_name=_last_name,
+                                            password=_password,
+                                            city=_city)
+            strHash = generateRandomString()
+            Validation.createValidation(newUser, strHash)
+            sendValidationMail(_username, _email, strHash)
             return HttpResponseRedirect('/')
         else:
             c = {'valid': False, 'form': user_form}
@@ -76,3 +80,14 @@ def show_profile(request, _username):
     ann_list = _user.getAnnouncements()
     return render(request, 'users/profile.html', {'barter_user': _user,
                                                   'ann_list': ann_list})
+
+
+def validate(request, strHash):
+    val = Validation.getValidation(strHash)
+    if val is not None:
+        Validation.validate(val)
+        return render(request, "simple_message.html",
+                      {'message': "Validation correct"})
+    else:
+        return render(request, "simple_message.html",
+                      {'message': "Validation failed"})

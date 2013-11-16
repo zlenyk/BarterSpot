@@ -1,4 +1,10 @@
 from django.http import HttpResponseRedirect
+from constants import VALIDATION_EMAIL, VALIDATION_CODE_LEN,\
+    VALIDATION_SUBJECT, VALIDATION_TEXT
+import string
+import random
+from django.core.mail import send_mail
+from threading import Thread
 
 
 class authorizationCheck(object):
@@ -10,3 +16,34 @@ class authorizationCheck(object):
             return self.func(request)
         else:
             return HttpResponseRedirect('/users/login/')
+
+
+def generateRandomString(nLen=VALIDATION_CODE_LEN):
+    charset = string.ascii_letters + string.digits
+    listRet = [random.choice(charset) for i in range(nLen)]
+    return ''.join(listRet)
+
+
+def sendBlockMail(strSubject, strMessage, strFrom, strTo):
+    send_mail(strSubject, strMessage, strFrom, [strTo])
+
+
+def sendNonblockMail(strSubject, strMessage, strFrom, strTo):
+    th = Thread(target=sendBlockMail,
+                args=(strSubject, strMessage, strFrom, strTo))
+    th.start()
+
+
+def sendValidationMail(strTo, strAddr, strHash, funcSend=sendNonblockMail):
+    """
+    Sends validation email
+    Arguments:
+     strTo - string with users login
+     strAddr - string with users email
+     strHash - validation address hash
+     funcSend - function senging message
+        it should have form
+        funcSend(subject, message, from_email, to_email)
+    """
+    strMessage = VALIDATION_TEXT % {"username": strTo, "hash": strHash}
+    funcSend(VALIDATION_SUBJECT, strMessage, VALIDATION_EMAIL, strAddr)

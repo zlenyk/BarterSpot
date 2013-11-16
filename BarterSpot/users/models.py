@@ -15,12 +15,13 @@ class BarterUser(User):
                    email,
                    password,
                    city):
-        newUser = BarterUser.objects.create_user(username=username,
-                                                 email=email,
-                                                 first_name=first_name,
-                                                 last_name=last_name,
-                                                 password=password,
-                                                 city=city)
+        newUser = BarterUser.objects.create(username=username,
+                                            email=email,
+                                            first_name=first_name,
+                                            last_name=last_name,
+                                            password=password,
+                                            city=city,
+                                            is_active=False)
         return newUser
 
     @staticmethod
@@ -64,9 +65,9 @@ class BarterUser(User):
         return BarterUser.objects.filter(last_name=_last_name)
 
     @staticmethod
-    def getUserByNames(_first_name,_last_name):
+    def getUserByNames(_first_name, _last_name):
         return BarterUser.objects.filter(first_name=_first_name,
-                                        last_name=_last_name)
+                                         last_name=_last_name)
 
     def getLogin(self):
         return self.get_username()
@@ -76,3 +77,34 @@ class BarterUser(User):
 
     def getAnnouncements(self, orderBy='pub_date'):
         return Announcement.getUsersAnnouncements(self, orderBy)
+
+    def validate(self):
+        self.is_active = True
+
+
+class Validation(models.Model):
+    user = models.ForeignKey("BarterUser")
+    code = models.CharField(max_length=40)
+
+    @staticmethod
+    def createValidation(user, strHash):
+        newVal = Validation(user=user, code=strHash)
+        newVal.save()
+        return newVal
+
+    @staticmethod
+    def validate(validation):
+        validation.user.validate()
+        validation.delete()
+        # Validation.objects.delete(validation)
+
+    @staticmethod
+    def validationExists(strHash):
+        return Validation.objects.filter(code=strHash).count() != 0
+
+    @staticmethod
+    def getValidation(strHash):
+        if Validation.validationExists(strHash):
+            return Validation.objects.get(code=strHash)
+        else:
+            return None
