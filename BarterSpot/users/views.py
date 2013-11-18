@@ -77,10 +77,13 @@ def logout_user(request):
 
 def show_profile(request, _username):
     _user = BarterUser.getUserByLogin(_username)
-    ann_list = _user.getAnnouncements()
-    return render(request, 'users/profile.html', {'barter_user': _user,
-                                                  'ann_list': ann_list})
-
+    if _user is not None:
+        ann_list = _user.getAnnouncements()
+        return render(request, "users/profile.html", {'barter_user': _user, 'ann_list': ann_list})
+    else:
+        return render(request, "errorPage.html",
+                      {'message': "User " + _username + " does not exists"})
+		
 
 def validate(request, strHash):
     val = Validation.getValidation(strHash)
