@@ -32,8 +32,8 @@ def register_user(request):
                                             password=_password,
                                             city=_city)
             strHash = generateRandomString()
-            Validation.createValidation(newUser, strHash)
-            sendValidationMail(_username, _email, strHash)
+            # Validation.createValidation(newUser, strHash)
+            # sendValidationMail(_username, _email, strHash)
             return HttpResponseRedirect('/')
         else:
             c = {'valid': False, 'form': user_form}

@@ -21,7 +21,8 @@ class BarterUser(User):
                                             last_name=last_name,
                                             password=password,
                                             city=city,
-                                            is_active=False)
+                                            # is_active=False
+                                            )
         return newUser
 
     @staticmethod
