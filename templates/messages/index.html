@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+
+<br>
+<div class="contentTitle">Inbox</div>
+<div class="pageContent">
+
+{% for message in inbox %}
+   <b>  FROM: {{ message.sender }} </b>
+    Subject: {{ message.subject }} 
+    <a href="/messages/message={{message.id}}">more</a> </br>
+{% endfor %}
+
+</div>
+</br>
+<div class="contentTitle">Outbox</div>
+<div class="pageContent">
+
+{% for message in outbox %}
+   <b>  TO: {{ message.recipient }} </b>
+    Subject: {{ message.subject }} 
+    <a href="/messages/message={{message.id}}">more</a> </br> 
+{% endfor %}
+
+</div>
+<hr>
+<div class="contentTitle">Send a message</div>
+<div class="pageContent">
+
+<form action="/messages/send/" method="post"> {% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+
+<br>
+<p> <b> From: </b> {{ msg.sender }} </br> 
+ <b> To: </b> {{ msg.recipient }} </br>
+ <b> Date: </b> {{ msg.date }} </p>
+<div class="contentTitle">{{ msg.subject }}</div>
+<div class="pageContent">
+{{msg.body}}
+</div>
+<a href="/messages/">back</a>
+{% endblock %}

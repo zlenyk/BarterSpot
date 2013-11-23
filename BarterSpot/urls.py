@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^$', 'BarterSpot.views.index'),
     url(r'^announcements/', include('BarterSpot.announcements.urls')),
     url(r'^users/', include('BarterSpot.users.urls')),
+    url(r'^messages/', include('BarterSpot.messages.urls')),
 )
