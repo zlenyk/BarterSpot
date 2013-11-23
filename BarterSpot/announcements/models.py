@@ -34,6 +34,8 @@ class Tag(models.Model):
 
         return ret
 
+    def getName(self): return self.name
+
     def incrementCount(self):
         self.count += 1
         self.save()
@@ -103,9 +105,14 @@ class Announcement(models.Model):
     def getContent(self):
         return self.content
 
+    def hasTag(self, tagName):
+        return self.tags.filter(name=tagName).count() > 0
+
     def addTag(self, tag):
-        tag.incrementCount()
-        self.tags.add(tag)
+        if not self.hasTag(tag.getName()):
+            tag.incrementCount()
+            self.tags.add(tag)
+            self.save()
 
     def addTagsList(self, tagsList):
         for tag in tagsList:
@@ -119,8 +126,10 @@ class Announcement(models.Model):
             self.addStrTag(strTag)
 
     def removeTag(self, tag):
-        tag.decrementCount()
-        self.tags.remove(tag)
+        if self.hasTag(tag.getName()):
+            tag.decrementCount()
+            self.tags.remove(tag)
+            self.save()
 
     def removeTagsList(self, tagsList):
         for tag in tagsList:
@@ -131,5 +140,5 @@ class Announcement(models.Model):
         if tagToRemove is not None:
             self.removeTag(tagToRemove)
 
-    def getSimilarAnnouncements():
+    def getSimilarAnnouncements(self):
         pass

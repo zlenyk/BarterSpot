@@ -27,11 +27,10 @@ def generateRandomString(nLen=VALIDATION_CODE_LEN):
 
 
 def sendBlockMail(strSubject, strMessage, strFrom, strTo):
+    # print("sending mail to ", strTo)
     send_mail(strSubject, strMessage, strFrom, [strTo])
     msg = MIMEText(strMessage)
     msg['Subject'] = strSubject
-    msg['From'] = strFrom
-    msg['To'] = strTo
     s = smtplib.SMTP(SMTP_ADDR)
     s.sendmail(strFrom, [strTo], msg.as_string())
     s.quit()
