@@ -15,14 +15,14 @@ class BarterUser(User):
                    email,
                    password,
                    city):
-        newUser = BarterUser.objects.create(username=username,
-                                            email=email,
-                                            first_name=first_name,
-                                            last_name=last_name,
-                                            password=password,
-                                            city=city,
-                                            # is_active=False
-                                            )
+        newUser = BarterUser.objects.create_user(username=username,
+                                                 email=email,
+                                                 first_name=first_name,
+                                                 last_name=last_name,
+                                                 password=password,
+                                                 city=city,
+                                                 # is_active=False
+                                                 )
         return newUser
 
     @staticmethod

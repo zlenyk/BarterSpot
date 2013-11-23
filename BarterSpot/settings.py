@@ -145,6 +145,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'BarterSpot.announcements',
     'BarterSpot.users',
+    'BarterSpot.messages',
+    'BarterSpot.transactions',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
