@@ -1,5 +1,7 @@
 SITE_ADDRESS = "localhost"
 EMAIL_SUFIX = "barterspot.com"
+SMTP_ADDR = 'localhost'
+
 
 ####################
 ###  VALIDATION  ###

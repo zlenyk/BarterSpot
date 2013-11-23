@@ -18,6 +18,7 @@ def register_user(request):
 
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)
+        validate = request.POST.get('validate', '')
         if user_form.is_valid():
             _username = user_form.cleaned_data['username']
             _first_name = user_form.cleaned_data['first_name']
@@ -25,15 +26,24 @@ def register_user(request):
             _email = user_form.cleaned_data['email']
             _password = user_form.cleaned_data['password1']
             _city = user_form.cleaned_data['city']
-            newUser = BarterUser.createUser(username=_username,
-                                            email=_email,
-                                            first_name=_first_name,
-                                            last_name=_last_name,
-                                            password=_password,
-                                            city=_city)
-            strHash = generateRandomString()
-            # Validation.createValidation(newUser, strHash)
-            # sendValidationMail(_username, _email, strHash)
+            if validate:
+                newUser = BarterUser.createUser(username=_username,
+                                                email=_email,
+                                                first_name=_first_name,
+                                                last_name=_last_name,
+                                                password=_password,
+                                                city=_city)
+                strHash = generateRandomString()
+                Validation.createValidation(newUser, strHash)
+                sendValidationMail(_username, _email, strHash)
+            else:
+                BarterUser.createUser(username=_username,
+                                      email=_email,
+                                      first_name=_first_name,
+                                      last_name=_last_name,
+                                      password=_password,
+                                      city=_city,
+                                      validate=False)
             return HttpResponseRedirect('/')
         else:
             c = {'valid': False, 'form': user_form}

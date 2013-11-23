@@ -1,10 +1,12 @@
-from django.http import HttpResponseRedirect
-from constants import VALIDATION_EMAIL, VALIDATION_CODE_LEN,\
-    VALIDATION_SUBJECT, VALIDATION_TEXT
+import smtplib
 import string
 import random
+from django.http import HttpResponseRedirect
+from constants import VALIDATION_EMAIL, VALIDATION_CODE_LEN,\
+    VALIDATION_SUBJECT, VALIDATION_TEXT, SMTP_ADDR
 from django.core.mail import send_mail
 from threading import Thread
+from email.mime.text import MIMEText
 
 
 class authorizationCheck(object):
@@ -26,6 +28,13 @@ def generateRandomString(nLen=VALIDATION_CODE_LEN):
 
 def sendBlockMail(strSubject, strMessage, strFrom, strTo):
     send_mail(strSubject, strMessage, strFrom, [strTo])
+    msg = MIMEText(strMessage)
+    msg['Subject'] = strSubject
+    msg['From'] = strFrom
+    msg['To'] = strTo
+    s = smtplib.SMTP(SMTP_ADDR)
+    s.sendmail(strFrom, [strTo], msg.as_string())
+    s.quit()
 
 
 def sendNonblockMail(strSubject, strMessage, strFrom, strTo):

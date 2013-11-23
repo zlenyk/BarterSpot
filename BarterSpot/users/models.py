@@ -14,15 +14,19 @@ class BarterUser(User):
                    last_name,
                    email,
                    password,
-                   city):
+                   city,
+                   validate=True):
         newUser = BarterUser.objects.create_user(username=username,
                                                  email=email,
                                                  first_name=first_name,
                                                  last_name=last_name,
                                                  password=password,
                                                  city=city,
-                                                 # is_active=False
                                                  )
+        if validate:
+            newUser.is_active = False
+
+        newUser.save()
         return newUser
 
     @staticmethod
@@ -81,6 +85,7 @@ class BarterUser(User):
 
     def validate(self):
         self.is_active = True
+        self.save()
 
 
 class Validation(models.Model):
