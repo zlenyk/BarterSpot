@@ -88,15 +88,6 @@ class Announcement(models.Model):
     def getUsersAnnouncements(user, orderBy='pub_date'):
         return Announcement.objects.filter(user=user).order_by(orderBy)
 
-    @staticmethod
-    def getAnnouncementsWithTag(tag):
-        tagObject = Tag.getTabByName(tag)
-        return Annoucement.objects.filter(tags=tagObject)
-
-    @staticmethod
-    def getAnnouncementsWithContent(phrase):
-        return Announcement.objects.filter(content__search=phrase)
-
     def __unicode__(self):
         return self.title
 
