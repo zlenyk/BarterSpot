@@ -95,6 +95,15 @@ class Announcement(models.Model):
         return Announcement.objects.order_by(orderBy)
 
     @staticmethod
+    def getAnnouncementsWithTag(tag):
+        tagObject = Tag.getTagByName(tag);
+        return Announcement.objects.filter(tags=tagObject)
+
+    @staticmethod
+    def getAnnouncementWithContent(phrase):
+        return Announcement.objects.filter(content__search=phrase)
+
+    @staticmethod
     def getUsersAnnouncements(user, orderBy='pub_date'):
         return Announcement.objects.filter(user=user).order_by(orderBy)
 

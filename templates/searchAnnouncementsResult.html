@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+    <div>
+    Results:
+    {% for announcement in result_list %}
+        </br>
+        <div class = "contentTitle">{{ announcement.getTitle }} </div>
+        <div class = "pageContent">
+            <p>Added by <b><a href="/users/profile/{{ announcement.getAuthorLogin }}" >
+            {{announcement.getAuthorLogin}}</a></b></p>
+            <a href="/announcements/show/{{ announcement.id }}">More</a> </br>
+            </br>
+        </div>
+        </br>
+    {% endfor %}
+    </div>
+{% endblock %}
