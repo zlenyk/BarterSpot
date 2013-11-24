@@ -7,9 +7,9 @@
 <div class="pageContent">
 
 {% for message in inbox %}
-   <b>  FROM: {{ message.sender }} </b>
+   <b>  FROM: {{ message.sender }} </b> </br>
     Subject: {{ message.subject }} 
-    <a href="/messages/message={{message.id}}">more</a> </br>
+    <div class="smallLink"><a href="/messages/message={{message.id}}">More</a></div> </br>
 {% endfor %}
 
 </div>
@@ -20,7 +20,7 @@
 {% for message in outbox %}
    <b>  TO: {{ message.recipient }} </b>
     Subject: {{ message.subject }} 
-    <a href="/messages/message={{message.id}}">more</a> </br> 
+    <div class="smallLink"><a href="/messages/message={{message.id}}">More</a></div>  </br> 
 {% endfor %}
 
 </div>
