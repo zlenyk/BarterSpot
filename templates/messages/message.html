@@ -3,15 +3,17 @@
 {% block main %}
 
 <br>
-<p> <b> From: </b> {{ msg.sender }} </br> 
- <b> To: </b> {{ msg.recipient }} </br>
- <b> Date: </b> {{ msg.date }} </p>
-<div class="contentTitle">{{ msg.subject }}</div>
 <div class="pageContent">
-{{msg.body}}
+	<p> <b> From: </b> {{ msg.sender }} </br> 
+	 <b> To: </b> {{ msg.recipient }} </br>
+	 <b> Date: </b> {{ msg.date }} </p>
+	<div class="smallTitle">{{ msg.subject }}</div>
+	<div class="pageContent">
+	{{msg.body}}
+	</div>
+	{{ msg.m_type }}
+	<br/>
+	<a href="/messages/">back</a>
 </div>
 
-{{ msg.m_type }}
-
-<a href="/messages/">back</a>
 {% endblock %}

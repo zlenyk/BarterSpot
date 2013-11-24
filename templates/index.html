@@ -2,6 +2,22 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block main %}
+<script>
+function rozwin(id,content)
+{
+	document.getElementById("ann_"+id).hidden=false;
+	document.getElementById("short_ann_"+id).hidden=true;
+	document.getElementById("show_"+id).hidden=true;
+	document.getElementById("hide_"+id).hidden=false;	
+}
+function hide(id)
+{
+	document.getElementById("ann_"+id).hidden=true;
+	document.getElementById("short_ann_"+id).hidden=false;
+	document.getElementById("show_"+id).hidden=false;
+	document.getElementById("hide_"+id).hidden=true;
+}
+</script>
 <div class="pageContent">
 {% if user.is_authenticated %}
     <b><p>Hello {{ user.username }} </p></b>
@@ -9,13 +25,23 @@
 </div>
 
 {% for announcement in announcement_list %}
+	<hr>
     <br/>
-    <div class="contentTitle">{{ announcement.getTitle }}</div>
+    <div class="smallTitle">{{ announcement.getTitle }}</div>
     <div class="pageContent">
 	<p>Added by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b> </p>
 	<a href="/announcements/show/{{announcement.id}}">More</a> </br>
 	<p> [<a href="/transactions/offer_exchange/{{announcement.id}}"> Offer exchange </a>] </p>
 	<br/>	
+	<p id="short_ann_{{announcement.id}}"> {{announcement.getShortenContent}}
+		<div class="smallLink" id="show_{{announcement.id}}" onclick="rozwin({{announcement.id}})"><a>Show</a></div> 
+	</p>
+	<p id="ann_{{announcement.id}}" hidden="true"> {{announcement.getContent}}
+		<div class="smallLink" id="hide_{{announcement.id}}" onclick="hide({{announcement.id}})"  hidden="true"><a>Hide</a></div> 
+	</p>
+	<p>Added by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b> </p>
+	
+	<div class="smallLink"><a href="/announcements/show/{{announcement.id}}">More</a></div> </br>
     </div>
     <br/>
 {% endfor %}

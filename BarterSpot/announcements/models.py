@@ -123,10 +123,13 @@ class Announcement(models.Model):
 
     def getTitle(self):
         return self.title
+		
+    def getShortenContent(self):
+        return self.content.splitlines()[0]
 
     def getContent(self):
         return self.content
-
+		
     def hasTag(self, tagName):
         return self.tags.filter(name=tagName).count() > 0
 

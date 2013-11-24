@@ -7,16 +7,18 @@
 <link rel="stylesheet" type="text/css" href={% static "baseStyle.css" %} />
 </head>
 
+
 <body>
-    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
+    <div id="sidebar"> {% block sidebar %}{% endblock %} </div>
+	
    {{ greeting }}
-        <div id="menu">
+			<div id="title">BarterSpot</div>
+		<div id="menu">
             {% block nav-global %}
 		<div id="contentBox">
-                <!-- MENU -->
-                <div id="title">BarterSpot</div>
+                <!-- MENU -->                
 		<div id="linkGroup">
-                        <div class = "link"><a href="/">Main</a></div>
+            <div class = "link"><a href="/">Main</a></div>
 			{% if user.is_authenticated == False %}
             <div class = "link"><a href="/users/login">Login</a></div>
 			<div class = "link"><a href="/users/register">Register</a></div>
@@ -26,8 +28,8 @@
 			<div class = "link"><a href="/users/profile/{{user.username}}">Profile</a></div>
 			<div class = "link"><a href="/searchPanel">Search</a></div>
 			<div class = "link"><a href="/announcements/add">Add</a></div>
-			<div class = "link"><a href="/users/logout">Logout</a></div>
-                        <div class = "link"><a href="/messages/index">Messages</a></div>
+			<div class = "link"><a href="/messages">Messages</a></div>
+			<div class = "link"><a href="/users/logout">Logout</a></div>                        
 			{% endif %}
 
 		</div>
