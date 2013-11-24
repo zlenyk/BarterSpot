@@ -17,9 +17,10 @@
 	
 	{% for announcement in ann_list %}
     <br/>
-    <div class="contentTitle">{{ announcement.title }}</div>
+    <div class="smallTitle">{{ announcement.title }}</div>
     <div class="pageContent">
 	<p>{{ announcement.content }}</p>
+	<p><i>{{ announcement.pub_date }}</i></p>
     </div>
     <br/>
 {% endfor %}
