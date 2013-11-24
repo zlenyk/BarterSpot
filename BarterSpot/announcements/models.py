@@ -11,9 +11,9 @@ class Tag(models.Model):
         return self.name
 
     @staticmethod
-    def getTagByName(self, strTagName):
+    def getTagByName(strTagName):
         if Tag.tagExists(strTagName):
-            return self.objects.get(name=strTagName)
+            return Tag.objects.get(name=strTagName)
         return None
 
     @staticmethod
@@ -34,7 +34,8 @@ class Tag(models.Model):
 
         return ret
 
-    def getName(self): return self.name
+    def getName(self):
+        return self.name
 
     def incrementCount(self):
         self.count += 1
@@ -72,14 +73,21 @@ class Announcement(models.Model):
     status = models.IntegerField(choices=STATUS, default=ACTIVE)
 
     @staticmethod
-    def createAnnouncement(user, title, content, tagsList):
+    def createAnnouncement(user,
+                           title,
+                           content,
+                           tagsList=None,
+                           tagsStrList=None):
         newAnn = Announcement(
             user=user,
             title=title,
             content=content,
         )
         newAnn.save()
-        newAnn.addTagsList(tagsList)
+        if tagsList is not None:
+            newAnn.addTagsList(tagsList)
+        if tagsStrList is not None:
+            newAnn.addStrTagsList(tagsStrList)
         return newAnn
 
     @staticmethod
