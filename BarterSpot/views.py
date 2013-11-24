@@ -23,3 +23,16 @@ def search(request):
         return render(request, 'searchResult.html', {'result_list': result_list})
     else:
         return HttpResponseRedirect('/')
+
+def searchAnnouncements(request):
+    if request.method == 'POST':
+        words = request.POST['topic']
+        words_list = words.split()
+        announcement_list = []
+        for word in words_list:
+            announcement_list += Announcement.getAnnouncementsWithTag(word)
+
+        return render(request,'searchAnnouncementsResult.html', {'result_list':announcement_list})
+
+    else:
+        return HttpResponseRedirect('/')
