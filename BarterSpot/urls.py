@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^searchUser/', 'BarterSpot.views.search'),
+	url(r'^searchPanel/', 'BarterSpot.views.searchPanel'),
     url(r'^$', 'BarterSpot.views.index'),
     url(r'^announcements/', include('BarterSpot.announcements.urls')),
     url(r'^users/', include('BarterSpot.users.urls')),

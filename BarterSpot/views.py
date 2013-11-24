@@ -8,6 +8,9 @@ from BarterSpot.users.forms import RegisterForm
 def index(request):
     ann_list = Announcement.getAllAnnouncements()
     return render(request, 'index.html', {'announcement_list': ann_list})
+	
+def searchPanel(request):
+    return render(request, 'searchPanel.html')
 
 def search(request):
     if request.method == 'POST':
