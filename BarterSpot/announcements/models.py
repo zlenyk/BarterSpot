@@ -1,6 +1,7 @@
 from django.db import models
 # import BarterSpot.users.models
 from datetime import datetime
+from BarterSpot.images.models import BarterImage
 
 
 class Tag(models.Model):
@@ -60,6 +61,7 @@ class Announcement(models.Model):
     tags = models.ManyToManyField(Tag)
     pub_date = models.DateTimeField('date of announcement',
                                     default=datetime.today())
+    main_image = models.ForeignKey(BarterImage, blank=True, null=True)
 
     ACTIVE = 0
     IN_PROGRESS = 1
@@ -126,6 +128,28 @@ class Announcement(models.Model):
 
     def getContent(self):
         return self.content
+
+    def hasMainImage(self):
+        if self.main_image is None:
+            return False
+        else:
+            return True
+
+    def getSmallMainImage(self):
+        if not self.hasMainImage():
+            return None
+        else:
+            return self.main_image.small_img
+
+    def getMainImage(self):
+        if not self.hasMainImage():
+            return None
+        else:
+            return self.main_image.normal_img
+
+    def setImage(self, barterImage):
+        self.main_image = barterImage
+        self.save()
 
     def hasTag(self, tagName):
         return self.tags.filter(name=tagName).count() > 0

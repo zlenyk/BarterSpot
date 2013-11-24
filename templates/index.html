@@ -11,6 +11,9 @@
 {% for announcement in announcement_list %}
     <br/>
     <div class="contentTitle">{{ announcement.getTitle }}</div>
+    {% if announcement.getSmallMainImage %}
+    <img src="{{ announcement.getSmallMainImage.url }}"/>
+    {% endif %}
     <div class="pageContent">
 	<p>Added by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b> </p>
 	<a href="/announcements/show/{{announcement.id}}">More</a> </br>

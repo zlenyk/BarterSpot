@@ -8,7 +8,8 @@
 <div class="contentTitle">Add announcement</div><br/>
 	<div class="pageContent">
 <!-- announcement form  -->
-<form action="/announcements/add_announcement/" method="post">
+<form action="/announcements/add_announcement/" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
 	<div>
         You add announcement as: {{user.username}}<br/>
 		Title: 
@@ -18,14 +19,20 @@
 		<textarea id="announcementText" name="content">
 		
 		</textarea>
+
+     <!--   <p>{{ image_form.non_field_errors }}</p>
+        <p>{{ image_form.docfile.label_tag }}</p>
+        <p>
+            {{ image_form.docfile.errors }}
+            {{ image_form.docfile }}
+        </p> -->
+
+        <input id="id_image" type="file" class="" name="image">
+
 		<br/>
 		<div id="tag_list_div"></div>
 		<script src="{{ STATIC_URL }}add_tags.js" type="text/javascript"></script>
 		<script type="text/javascript">initTags()</script>
-
-<!--	<input name="tag_list" value="tag1" />
-	<input name="tag_list" value="tag2" />
-	<input name="tag_list" value="tag3" /> -->
 
     <br/>
 	<br/>
