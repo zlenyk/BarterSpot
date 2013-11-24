@@ -15,9 +15,11 @@
 	{% endif %}	
 	{% endfor %}</p>
     <div class="pageContent">
+	
     {% if announcement.hasMainImage %}
     <p><a href="{{ announcement.getMainImage.url }}"><img src="{{ announcement.getSmallMainImage.url }}"/></a></p>
     {% endif %}		
+	
 	{{ announcement.getContent }}
 	<p><i>Added {{ announcement.pub_date }} by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b></i> </p>
     </div>

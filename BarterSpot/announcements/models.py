@@ -163,9 +163,6 @@ class Announcement(models.Model):
         self.main_image = barterImage
         self.save()
 
-    def getTags(self):
-        return self.tags.all()
-		
     def hasTag(self, tagName):
         return self.tags.filter(name=tagName).count() > 0
 
