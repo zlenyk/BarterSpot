@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+
+<div class="pageContent">
+{% for announcement in announcements %}
+<p> <b> {{announcement.getTitle }} </b> <br>
+{{ announcement.getContent }} <br>
+[<a href="/transactions/make_transaction/{{want_id}}/{{announcement.id}}"> Choose </a>]
+</p>
+{% endfor %}
+</div>
+{% endblock %}

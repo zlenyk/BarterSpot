@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+
+<br>
+<b><div class="contentTitle">Pending offers </div> </b>
+<div class="contentTitle"> To you </div>
+<div class="pageContent">
+
+{% for transaction in pending_to_me %}
+    <i>{{transaction.offer_date}}</i><br> 
+    <b>User </b> {{ transaction.source_user }} <b> offers: </b> "{{ transaction.source_ann }}"  <br>
+    <b>for your     </b> "{{transaction.target_ann}}"<br>
+    <a href="/transactions/accept/{{transaction.id}}">ACCEPT</a> / 
+    <a href="/transactions/reject/{{transaction.id}}">REJECT</a> <br><br>
+{% endfor %}
+
+</div>
+<div class="contentTitle"> From you </div>
+<div class="pageContent">
+
+{% for transaction in pending_from_me %}
+    <i>{{transaction.offer_date}}</i> <br>
+    <b>You offer:</b> "{{transaction.source_ann}}" <br>
+    <b>for </b> {{transaction.target_user}}'s "{{transaction.target_ann}}" <br><br> 
+{% endfor %}
+
+</div>
+<hr>
+<b><div class="contentTitle">Finished transactions </div> </b>
+<div class="contentTitle">Your offers</div>
+<div class="pageContent">
+{% for transaction in finished_from_me %}
+    <i>{{transaction.response_date}}</i> <br>
+    <b>Your offer of: </b> "{{ transaction.source_ann }}" <br>
+    <b>for: </b> "{{ transaction.target_ann }} <br>
+    <b>was </b> {{ transaction.getStatus }} <br><br>
+
+{% endfor %}
+</div>
+
+{% endblock %}

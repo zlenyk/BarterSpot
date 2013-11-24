@@ -35,16 +35,16 @@ class Message(models.Model):
         return msg
 
     @staticmethod
-    def getMessagesTo(_recipient):
+    def getMessagesTo(recipient_id):
         try:
-            return Message.objects.filter(recipient=_recipient)
+            return Message.objects.filter(recipient=recipient_id)
         except Message.DoesNotExist:
             return None
     
     @staticmethod
-    def getMessagesFrom(_sender):
+    def getMessagesFrom(sender_id):
         try:
-            return Message.objects.filter(sender=_sender)
+            return Message.objects.filter(sender=sender_id)
         except Message.DoesNotExist:
             return None
     
