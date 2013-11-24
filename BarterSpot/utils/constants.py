@@ -23,3 +23,10 @@ If you haven't registered for BarterSpot please just ignore this message.
 
 Best regards,
 BarterSpot team"""
+
+####################
+###### IMAGES ######
+####################
+
+MIN_SMALL_X = 200
+MIN_SMALL_Y = 200

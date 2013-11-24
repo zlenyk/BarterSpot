@@ -28,6 +28,9 @@ function hide(id)
 	<hr>
     <br/>
     <div class="smallTitle">{{ announcement.getTitle }}</div>
+    {% if announcement.getSmallMainImage %}
+    <img src="{{ announcement.getSmallMainImage.url }}"/>
+    {% endif %}
     <div class="pageContent">
 	<p> [<a href="/transactions/offer_exchange/{{announcement.id}}"> Offer exchange </a>] </p>
 	<p id="short_ann_{{announcement.id}}"> {{announcement.getShortenContent}}

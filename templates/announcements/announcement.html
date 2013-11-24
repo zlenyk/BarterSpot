@@ -11,6 +11,11 @@
     <div class="pageContent">
 	<p>{{ announcement.getContent }}</p>
 	<p>Added {{ announcement.pub_date }} by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b> </p>
+
+    {% if announcement.hasMainImage %}
+    <p><a href="{{ announcement.getMainImage.url }}"><img src="{{ announcement.getSmallMainImage.url }}"/></a></p>
+    {% endif %}
+
     </div>
     <br/>
 </div>

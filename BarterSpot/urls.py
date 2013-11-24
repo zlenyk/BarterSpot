@@ -1,4 +1,7 @@
 from django.conf.urls import patterns, include, url
+import settings
+from django.conf.urls.static import static
+
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -22,4 +25,4 @@ urlpatterns = patterns('',
     url(r'^users/', include('BarterSpot.users.urls')),
     url(r'^messages/', include('BarterSpot.messages.urls')),
     url(r'^transactions/', include('BarterSpot.transactions.urls')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
