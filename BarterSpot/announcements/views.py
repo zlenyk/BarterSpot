@@ -30,3 +30,10 @@ def add_announcement(request):
     else:
         # Should be "Announcement creation failed"
         return HttpResponseRedirect('/')
+		
+def show_announcement(request, ann_id):
+    announcement = Announcement.objects.get(pk=ann_id)
+    if announcement is not None:
+		return render(request, 'announcements/announcement.html', {'announcement': announcement})
+    else:
+		return render(request, "errorPage.html", {'message': "Announcement does not exist"})

@@ -92,7 +92,7 @@ def show_profile(request, _username):
         return render(request, "users/profile.html", {'barter_user': _user, 'ann_list': ann_list})
     else:
         return render(request, "errorPage.html",
-                      {'message': "User " + _username + " does not exists"})
+                      {'message': "User " + _username + " does not exist"})
 		
 
 def validate(request, strHash):
