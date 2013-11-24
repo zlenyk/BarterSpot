@@ -3,7 +3,7 @@
 {% load url from future %}
 {% block main %}
 <script>
-function rozwin(id,content)
+function expand(id,content)
 {
 	document.getElementById("ann_"+id).hidden=false;
 	document.getElementById("short_ann_"+id).hidden=true;
@@ -29,12 +29,9 @@ function hide(id)
     <br/>
     <div class="smallTitle">{{ announcement.getTitle }}</div>
     <div class="pageContent">
-	<p>Added by <b><a href="/users/profile/{{announcement.getAuthorLogin}}"> {{announcement.getAuthorLogin}}</a></b> </p>
-	<a href="/announcements/show/{{announcement.id}}">More</a> </br>
 	<p> [<a href="/transactions/offer_exchange/{{announcement.id}}"> Offer exchange </a>] </p>
-	<br/>	
 	<p id="short_ann_{{announcement.id}}"> {{announcement.getShortenContent}}
-		<div class="smallLink" id="show_{{announcement.id}}" onclick="rozwin({{announcement.id}})"><a>Show</a></div> 
+		<div class="smallLink" id="show_{{announcement.id}}" onclick="expand({{announcement.id}})"><a>Expand</a></div> 
 	</p>
 	<p id="ann_{{announcement.id}}" hidden="true"> {{announcement.getContent}}
 		<div class="smallLink" id="hide_{{announcement.id}}" onclick="hide({{announcement.id}})"  hidden="true"><a>Hide</a></div> 
