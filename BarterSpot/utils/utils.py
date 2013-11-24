@@ -3,7 +3,8 @@ import string
 import random
 from django.http import HttpResponseRedirect
 from constants import VALIDATION_EMAIL, VALIDATION_CODE_LEN,\
-    VALIDATION_SUBJECT, VALIDATION_TEXT, SMTP_ADDR
+    VALIDATION_SUBJECT, VALIDATION_TEXT, SMTP_ADDR,\
+    GMAIL_USER, GMAIL_PASS
 from threading import Thread
 from email.mime.text import MIMEText
 from email.header import Header
@@ -31,7 +32,12 @@ def sendBlockMail(strSubject, strMessage, strFrom, strTo):
         # print("sending mail to ", strTo)
         msg = MIMEText(strMessage, _charset='utf-8')
         msg['Subject'] = Header(strSubject, 'utf-8')
+        msg['From'] = strFrom
+        msg['To'] = strTo
         s = smtplib.SMTP(SMTP_ADDR)
+        s.ehlo()
+        s.starttls()
+        s.login(GMAIL_USER, GMAIL_PASS)
         s.sendmail(strFrom, [strTo], msg.as_string())
         s.quit()
     except Exception, error:

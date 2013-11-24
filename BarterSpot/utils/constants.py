@@ -1,11 +1,14 @@
-SITE_ADDRESS = "localhost"
+SITE_ADDRESS = "localhost:8000"
 EMAIL_SUFIX = "barterspot.com"
-SMTP_ADDR = 'localhost'
+SMTP_ADDR = 'smtp.gmail.com:587'
 
 
 ####################
 ###  VALIDATION  ###
 ####################
+
+GMAIL_USER = 'io.barterspot'
+GMAIL_PASS = 'szczypka'
 
 VALIDATION_PREFIX = "noreply"
 VALIDATION_EMAIL = VALIDATION_PREFIX + "@" + EMAIL_SUFIX
