@@ -75,7 +75,7 @@ width:600px;
 {
 font-family:Arial, Helvetica, sans-serif;
 font-size:12px;
-font-variant:small-caps;
+text-shadow: 1px 1px 1px violet;
 }
 
 #title
@@ -89,6 +89,11 @@ font-weight:bold;
 text-align:left;
 padding-top: 10px;
 position: relative; 
+}
+
+#loginInfo
+{
+text-align:right;
 }
 
 .contentTitle

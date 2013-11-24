@@ -9,13 +9,23 @@
 
 
 <body>
-    <div id="sidebar"> {% block sidebar %}{% endblock %} </div>
+    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
 	
-   {{ greeting }}
-			<div id="title">BarterSpot</div>
+   {{ greeting }} 	
+   
+		<div id="title">BarterSpot
+		</div>
+				
 		<div id="menu">
+		
             {% block nav-global %}
+		<div id="loginInfo">
+		{% if user.is_authenticated %}
+			<l>You are logged in as {{user.username}}.</l>
+		{% endif %}
+		</div>
 		<div id="contentBox">
+		
                 <!-- MENU -->                
 		<div id="linkGroup">
             <div class = "link"><a href="/">Main</a></div>
