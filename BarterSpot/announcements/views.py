@@ -25,14 +25,14 @@ def add_announcement(request):
     tagsList = Tag.addTagsList(tagsStrList)
     newAnn = Announcement.createAnnouncement(_user, _title, _content, tagsList)
     if newAnn is not None:
-        # Should be "Announcement creation cucccessful" or whatever
+        # Should be "Announcement creation succcessful" or whatever
         return HttpResponseRedirect('/')
     else:
         # Should be "Announcement creation failed"
         return HttpResponseRedirect('/')
 		
 def show_announcement(request, ann_id):
-    announcement = Announcement.objects.get(pk=ann_id)
+    announcement = Announcement.getAnnouncementById(ann_id)
     if announcement is not None:
 		return render(request, 'announcements/announcement.html', {'announcement': announcement})
     else:

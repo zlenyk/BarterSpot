@@ -97,6 +97,20 @@ class Announcement(models.Model):
     @staticmethod
     def getUsersAnnouncements(user, orderBy='pub_date'):
         return Announcement.objects.filter(user=user).order_by(orderBy)
+	
+	@staticmethod
+	def announcementWithIdExists(_id):
+		if Announcement.objects.filter(id=_id):
+			return True
+		else:
+			return False
+	
+	@staticmethod
+	def getAnnouncementById(_id):
+		if Announcement.announcementWithIdExists(_id):
+			return Announcement.objects.get(id=_id)
+		else:
+			return None
 
     def __unicode__(self):
         return self.title
