@@ -45,3 +45,9 @@ def show_announcement(request, ann_id):
         return render(request, 'announcements/announcement.html', {'announcement': announcement})
     else:
         return render(request, "errorPage.html", {'message': "Announcement does not exist"})
+
+def remove(request, ann_id):
+    Announcement.removeAnnouncement(ann_id)
+    return HttpResponseRedirect('/users/profile/'+request.user.username); 
+
+

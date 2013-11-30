@@ -123,6 +123,12 @@ class Announcement(models.Model):
         else:
             return None
 
+    @staticmethod
+    def removeAnnouncement(_id):
+        ann = Announcement.getAnnouncementById(_id)
+        if ann is not None:
+            ann.delete()
+
     def __unicode__(self):
         return self.title
 

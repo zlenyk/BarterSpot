@@ -21,6 +21,9 @@
     <div class="pageContent">
 	<p>{{ announcement.content }}</p>
 	<p><i>{{ announcement.pub_date }}</i></p>
+        {% if user.username == announcement.user.username %}
+        <p><b><a href="/announcements/remove/{{ announcement.id }}">remove</a></b></p>
+        {% endif %}
     </div>
     <br/>
 {% endfor %}
