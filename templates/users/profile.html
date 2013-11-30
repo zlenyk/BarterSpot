@@ -19,6 +19,12 @@
     <br/>
     <div class="smallTitle">{{ announcement.title }}</div>
     <div class="pageContent">
+	{% if user.is_authenticated %}
+            {% if user.username != announcement.user.username %} 
+        <p> <u><a href="/transactions/offer_exchange/{{announcement.id}}"> Offer exchange </a></u> </p>
+	    {% endif %}
+        {% endif %}
+        <p id="short_ann_{{announcement.id}}"> {{announcement.getShortenContent}}
 	<p>{{ announcement.content }}</p>
 	<p><i>{{ announcement.pub_date }}</i></p>
         {% if user.username == announcement.user.username %}
