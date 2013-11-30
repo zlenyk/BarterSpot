@@ -25,7 +25,7 @@ class Transaction(models.Model):
     response_date = models.DateTimeField(null=True, default=None)
 
     def getStatus(self):
-        return self.status # TODO !!
+        return self.STATUS[int(self.status)][1]
 
     @staticmethod
     def createTransaction(_source_user, _target_user, _status, _source_ann, _target_ann):
