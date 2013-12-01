@@ -59,8 +59,7 @@ class Announcement(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
-    pub_date = models.DateTimeField('date of announcement',
-                                    default=datetime.today())
+    pub_date = models.DateTimeField(default=datetime.now, blank=True)
     main_image = models.ForeignKey(BarterImage, blank=True, null=True)
 
     ACTIVE = 0
@@ -93,7 +92,7 @@ class Announcement(models.Model):
         return newAnn
 
     @staticmethod
-    def getAllAnnouncements(orderBy='pub_date'):
+    def getAllAnnouncements(orderBy='-pub_date'):
         return Announcement.objects.order_by(orderBy)
 
     @staticmethod
