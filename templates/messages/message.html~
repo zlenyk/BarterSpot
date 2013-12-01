@@ -3,7 +3,7 @@
 {% block main %}
 
 {% if user.is_authenticated %}
-{% if user.username == msg.sender.username or user.username == msg.recipient.username %}
+{% if user.username == msg.sender.username or user.username == msg.reciepient.username %}
 <br>
 <div class="pageContent">
 	<p> <b> From: </b> {{ msg.sender }} </br> 
