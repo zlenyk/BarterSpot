@@ -28,19 +28,19 @@
 		
                 <!-- MENU -->                
 		<div id="linkGroup">
-            <div class = "link"><a href="/">Main</a></div>
+            <div class = "link"><a href="/" class="fill-div">Main</a></div>
 			{% if user.is_authenticated == False %}
-            <div class = "link"><a href="/users/login">Login</a></div>
-			<div class = "link"><a href="/users/register">Register</a></div>
+            <div class = "link"><a href="/users/login" class="fill-div">Login</a></div>
+			<div class = "link"><a href="/users/register" class="fill-div">Register</a></div>
 			{% endif %}
 
             {% if user.is_authenticated %}
-			<div class = "link"><a href="/users/profile/{{user.username}}">Profile</a></div>
-			<div class = "link"><a href="/searchPanel">Search</a></div>
-			<div class = "link"><a href="/announcements/add">Add</a></div>
-			<div class = "link"><a href="/messages">Messages</a></div>
-                        <div class = "link"><a href="/transactions">Transactions</a></div>
-			<div class = "link"><a href="/users/logout">Logout</a></div>
+			<div class = "link"><a href="/users/profile/{{user.username}}" class="fill-div">Profile</a></div>
+			<div class = "link"><a href="/searchPanel" class="fill-div">Search</a></div>
+			<div class = "link"><a href="/announcements/add" class="fill-div">Add</a></div>
+			<div class = "link"><a href="/messages" class="fill-div">Messages</a></div>
+                        <div class = "link"><a href="/transactions" class="fill-div">Transactions</a></div>
+			<div class = "link"><a href="/users/logout" class="fill-div">Logout</a></div>
 			{% endif %}
 
 		</div>
