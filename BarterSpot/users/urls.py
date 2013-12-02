@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     url(r'^logout/', views.logout_user),
     url(r'^profile/(?P<_username>\w+)/$', views.show_profile),
     url(r'^validate/(?P<strHash>\w+)/$', views.validate),
+    url(r'^edit/(?P<_username>\w+)/$', views.edit),
+    url(r'^change/(?P<_username>\w+)/$', views.change),
 )

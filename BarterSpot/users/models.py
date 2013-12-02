@@ -83,6 +83,13 @@ class BarterUser(User):
     def getAnnouncements(self, orderBy='pub_date'):
         return Announcement.getUsersAnnouncements(self, orderBy)
 
+    def updateUserData(self, _first_name, _last_name, _email, _city):
+	self.first_name = _first_name
+	self.last_name =_last_name
+	self.email =_email
+	self.city = _city
+	self.save()
+
     def validate(self):
         self.is_active = True
         self.save()

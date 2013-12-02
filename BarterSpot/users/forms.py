@@ -8,3 +8,10 @@ class RegisterForm(UserCreationForm):
     last_name = forms.CharField(max_length=100, required=True)
     email = forms.EmailField(max_length=100, required=True)
     city = forms.CharField(max_length=100, required=True)
+
+class EditForm(forms.Form):
+    first_name = forms.CharField(max_length=100, required=True)
+    last_name = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(max_length=100, required=True)
+    city = forms.CharField(max_length=100, required=True)
+	

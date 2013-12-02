@@ -7,7 +7,9 @@
 <div class="pageContent">
 <br/>
     <br/>
+	{% if user.username != announcement.user.username %} 
 	<p> [<a href="/transactions/offer_exchange/{{announcement.id}}"> Offer exchange </a>] </p>
+	{% endif %}
     <div class="smallTitle">{{ announcement.getTitle }}</div>
 	<p>Tags: {% for tag in announcement.getTags %} 
 	{% if tag.name != "" %}

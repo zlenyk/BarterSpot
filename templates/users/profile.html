@@ -6,6 +6,12 @@
 <div class="contentTitle">User profile</div>
 <div class="pageContent">
 <br/>
+	<p>{% if user.username == barter_user.username %}
+		<a href="/users/edit/{{ user.username }}">Edit</a>
+	{% endif %}</p>
+	<p>{% if user.username == barter_user.username %}
+		<a href="/users/change/{{ user.username }}">Change password</a>
+	{% endif %}</p> 
 	<b>Login: </b> {{barter_user.username}} <br/>
 	<b>First name: </b> {{barter_user.first_name}} <br/>
 	<b>Last name: </b> {{barter_user.last_name}} <br/>

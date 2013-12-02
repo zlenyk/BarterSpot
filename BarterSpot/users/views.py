@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render
 from models import BarterUser, Validation
-from BarterSpot.users.forms import RegisterForm
+from BarterSpot.users.forms import RegisterForm, EditForm
 from BarterSpot.announcements.models import Announcement
 from django.core.context_processors import csrf
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django.http import HttpResponseRedirect
 from BarterSpot.utils.utils import generateRandomString, sendValidationMail
 
@@ -104,3 +104,45 @@ def validate(request, strHash):
     else:
         return render(request, "simple_message.html",
                       {'message': "Validation failed"})
+
+def change(request, _username):
+    if request.user.is_authenticated() == False:
+        return render(request, 'users/edit.html', {'has_account': False})
+    _user = BarterUser.getUserByLogin(_username)
+    if request.method == 'POST':	
+        user_form = SetPasswordForm(_user, request.POST)
+	
+        #_password1 = user_form.cleaned_data['new_password1']
+	#_password2 = user_form.cleaned_data['new_password2']
+	if user_form.is_valid():
+	    user_form.save()
+	    return render(request, "simple_message.html",
+                      {'message': "Validation correct"})
+	else:
+	    return render(request, "simple_message.html",
+                      {'message': "User form is invalid"})
+    else:
+	user_form = SetPasswordForm(_user)
+	return render(request, 'users/change.html', {'form': user_form})
+
+def edit(request, _username):
+    if request.user.is_authenticated() == False:
+        return render(request, 'users/edit.html', {'has_account': False})
+    _user = BarterUser.getUserByLogin(_username)
+    if request.method == 'POST':
+        user_form = EditForm(request.POST)
+        validate = request.POST.get('validate', '')
+        _first_name = user_form.data['first_name']
+        _last_name = user_form.data['last_name']
+        _email = user_form.data['email']
+        _city = user_form.data['city']
+	_user.updateUserData(_first_name, _last_name, _email, _city)
+	return render(request, "simple_message.html",
+                      {'message': "Data changed!"})
+    else:
+	user_form = EditForm(request.POST)
+	user_form.data['first_name'] = _user.first_name
+	user_form.data['last_name'] = _user.last_name
+	user_form.data['email'] = _user.email
+	user_form.data['city'] = _user.city
+	return render(request, 'users/edit.html', {'form': user_form})
