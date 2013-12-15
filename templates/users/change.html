@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block main %}
+<br>
+<div class="contentTitle">{{ state }}</div>
+<div class="contentTitle">
+{% if has_account == False %}
+<p> First log in then you can change your password. </p>
+<a href="/">Main</a>
+{% else %}
+ 
+    {% if valid == False %}
+        <p><b>Data in the form is incorrect or incomplete.</b></p>
+    {% endif%}
+
+    <form action="/users/change/{{user.username}}/" method="post">
+    {% csrf_token %}
+    <table>
+            {% for field in form %}
+    <tr>
+	{% if field.label_tag != form %}
+        <td>{{ field.label_tag }}</td>
+            <td>{{ field }}</td>
+	{% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="Submit" /> 
+    </form>
+{% endif %}
+</div> 
+
+{% endblock %}
